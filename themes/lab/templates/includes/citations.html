@@ -1,0 +1,119 @@
+{% macro citation(c) %}
+	<div class="citation">
+	  		
+  		{% if c.type == 'paper' %}
+  			{% set typedir = 'papers' %}
+  		{% else %}
+  			{% set typedir = c.type %}
+  		{% endif %}
+  	
+  		<a href="{{ c.image }}" class="citation-image" aria-label="{{ c.title }}">
+	    	<img src="{{ c.image }}" alt="{{ c.title }}" loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+	  	</a>
+  		
+  		<div class="citation-text">
+	  		<p>
+	  			{% if c.slug %}
+	  			<a href="/publications/{{ typedir }}/{{ c.slug }}" class="citation-title">
+	  				{{ c.title }} <!-- Internal link to possible subpage -->
+	  			</a>
+	  			{% else %}
+	  				<font style="text-decoration: underline;">{{ c.title }}</font>
+	  			{% endif %}
+	  			
+	  			
+	  			{% for info in ['pdf', 'bib'] %}
+		  			{% if c[info] %}
+		  				<a href="{{ c[info] }}" title="{{ TYPES[info].text }}" class="citation-{{ info }}" target="_blank" style="text-decoration: none;">
+		  					<i class="icon {{ TYPES[info].icon }}"></i>
+		  				</a>
+		  			{% endif %}		  			
+	  			{% endfor %}			
+	  			
+	  			<div class="citation-authors" tabindex="0">
+	  				{{ c.authors[:6]|join(', ') }}{% if c.authors|length > 6 %}, et al.{% endif %}
+	  			</div>
+	  			<div class="citation-details">
+	  				{% set cide_seen = 0 %}
+	  				{% if c.publisher %}<span class="citation-publisher">{{ c.publisher }}</span> {% set cide_seen = 1 %}{% endif %}
+					{% if c.date %}{% if cide_seen == 1 %}&#183; {% endif %}<span class="citation-date">({{ c.date[:4] }})</span> {% set cide_seen = 1 %}{% endif %}
+					{% if c.link %}{% if cide_seen == 1 %}&#183; {% endif %}<span class="citation-id"><a href="{{ c.link }}" title="External: Journal" target="_blank">{{ c.link }}</a></span> {% set cide_seen = 1 %}{% endif %}
+					{% if c.arxiv %}{% if cide_seen == 1 %}&#183; {% endif %}<a href="{{ c.arxiv }}" title="External: arXiv" target="_blank"><span class="citation-arxiv"><i class="icon {{ TYPES['arxiv'].icon }}" style="white-space: nowrap;"></i></span></a> {% set cide_seen = 1 %}{% endif %}
+					{% if c.researchgate %}{% if cide_seen == 1 %}&#183; {% endif %}<a href="{{ c.researchgate }}" title="External: ResearchGate" target="_blank"><span class="citation-researchgate"><i class="icon {{ TYPES['researchgate'].icon }}" style="white-space: nowrap;"></i></span></a> {% endif %}  			
+	  			</div>
+	  			<div class="citation-description" tabindex="0">
+	  				{{ c.description }}
+	  			</div>
+	  			
+	  			
+	  			<div class="citation-infos">
+		  			{% for info in ['youtube', 'vimeo', 'slides', 'poster', 'outreach', 'event', 'earlybird'] %}
+			  			{% if c[info] %}
+			  						  				
+			  				{% if info in ['youtube', 'vimeo'] %}
+			  					{% if c[info] is string %}
+					  				<a href="{{ c[info] }}" title="External {{ TYPES[info].text }}: {{ c[info] }}" class="citation-{{ info }}" target="_blank" style="text-decoration: none;">
+					  					<i class="icon {{ TYPES[info].icon }}" style="white-space: nowrap;"></i>
+					  				</a>
+					  			{% elif c[info] is sequence %}
+					  				{% for entry in c[info] %}
+					  					{% if entry is string %}
+					  						<a href="{{ entry }}" title="External {{ TYPES[info].text }}: {{ entry }}" class="citation-{{ info }}" target="_blank" style="text-decoration: none;">
+					  							<i class="icon {{ TYPES[info].icon }}" style="white-space: nowrap;"></i>
+					  						</a>
+					  					{% elif entry is mapping %}
+					  						<a href="{{ entry['link'] }}" title="External {{ TYPES[info].text }}: {{ entry['label'] }}" class="citation-{{ info }}" target="_blank" style="text-decoration: none;">
+					  							<i class="icon {{ TYPES[info].icon }}" style="white-space: nowrap;"></i>
+					  						</a>						  					
+					  					{% endif %}				  			
+					  				{% endfor %}
+					  			{% endif %}
+			  				{% else %}
+			  					{% if c[info] is string %}
+				  					<a href="{{ c[info] }}" title="{{ TYPES[info].text }}: {{ c[info] }}" class="citation-{{ info }}" target="_blank" style="text-decoration: none;">
+				  						<i class="icon {{ TYPES[info].icon }}" style="white-space: nowrap;"></i>
+				  					</a>
+				  				{% elif c[info] is sequence %}
+				  					{% for entry in c[info] %}
+				  						{% if entry is string %}
+					  						<a href="{{ entry }}" title="{{ TYPES[info].text }}: {{ entry }}" class="citation-{{ info }}" target="_blank" style="text-decoration: none;">
+					  							<i class="icon {{ TYPES[info].icon }}" style="white-space: nowrap;"></i>
+					  						</a>
+				  						{% elif entry is mapping %}
+				  							<a href="{{ entry['link'] }}" title="{{ TYPES[info].text }}: {{ entry['label'] }}" class="citation-{{ info }}" target="_blank" style="text-decoration: none;">
+					  							<i class="icon {{ TYPES[info].icon }}" style="white-space: nowrap;"></i>
+					  						</a>					  						
+				  						{% endif %}
+				  					{% endfor %}
+				  				{% endif %}
+			  				{% endif %}
+			  				
+			  			{% endif %}		  			
+		  			{% endfor %}
+				</div>
+	  			
+	  			
+	  			<div class="citation-buttons">
+	  				{% for button in c.buttons or [] %}
+	  				<div class="button-wrapper">
+	  					<a class="button" href="{{ button.link }}" title="External: {{ TYPES[button.type].text }}" data-tooltip="External: {{ TYPES[button.type].tooltip }}" data-style="bare" aria-label="{{ TYPES[button.type].text }}">
+						  <i class="icon {{ TYPES[button.type].icon }}"></i>
+						  	{% if button.text %}
+								<span>{{ button.text }}</span>
+							{% else %}
+								<span>{{ TYPES[button.type].text }}</span>
+							{% endif %}
+						</a>
+	  				</div>
+	  				{% endfor %}
+	  			</div>
+	  			<div class="tags">
+	  				{% for tag in c.tags or [] %}
+	  					<a href="?search=&quot;tag: {{ tag }}&quot;" class="tag">{{ tag }}</a>
+	  				{% endfor %}
+	  			</div>
+	  		</p>
+  		</div>
+  		
+  	</div>
+{% endmacro %}

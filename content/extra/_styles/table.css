@@ -1,0 +1,32 @@
+table {
+  width: 100%;
+  max-width: 100%;
+  margin: 40px auto;
+  border-collapse: collapse;
+  overflow-wrap: anywhere;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+th {
+  font-weight: var(--semi-bold);
+}
+
+th,
+td {
+  padding: 10px 15px;
+  border: solid 1px var(--light-gray);
+}
+
+@media (max-width: 640px) {
+  table {
+    margin: 24px auto;
+    font-size: 0.95em;
+  }
+
+  th,
+  td {
+    padding: 8px 10px;
+  }
+}

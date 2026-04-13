@@ -1,0 +1,174 @@
+:root {
+  --site-bg: #ffffff;
+  --site-text: #111111;
+  --site-muted: #666666;
+  --site-border: #dddddd;
+  --site-link: #0b57d0;
+  --site-panel: #f5f5f5;
+  --site-panel-2: #fafafa;
+  --site-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --site-header-bg: rgba(255, 255, 255, 0.92);
+  --site-code-bg: #f3f4f6;
+}
+
+html[data-dark="true"] {
+  --site-bg: #111315;
+  --site-text: #e8e8e8;
+  --site-muted: #b8b8b8;
+  --site-border: #33383d;
+  --site-link: #8ab4f8;
+  --site-panel: #1a1d21;
+  --site-panel-2: #15181b;
+  --site-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  --site-header-bg: rgba(17, 19, 21, 0.92);
+  --site-code-bg: #1c2128;
+}
+
+html,
+body {
+  background: var(--site-bg);
+  color: var(--site-text);
+}
+
+body {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+a {
+  color: var(--site-link);
+}
+
+/* Toggle */
+
+.theme-toggle {
+  margin-left: auto;
+  border: 1px solid var(--site-border);
+  background: var(--site-panel);
+  color: var(--site-text);
+  border-radius: 999px;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+  box-shadow: var(--site-shadow);
+}
+
+.theme-toggle:hover {
+  background: var(--site-panel-2);
+}
+
+.theme-toggle__dark {
+  display: none;
+}
+
+html[data-dark="true"] .theme-toggle__light {
+  display: none;
+}
+
+html[data-dark="true"] .theme-toggle__dark {
+  display: inline;
+}
+
+/* ar5iv / LaTeXML containers */
+
+html[data-dark="true"] body,
+html[data-dark="true"] .ltx_page_main,
+html[data-dark="true"] .ltx_page_content,
+html[data-dark="true"] .ltx_document,
+html[data-dark="true"] .ltx_page_footer,
+html[data-dark="true"] .ltx_sidebar {
+  background: var(--site-bg) !important;
+  color: var(--site-text) !important;
+}
+
+/* headings and text */
+
+html[data-dark="true"] h1,
+html[data-dark="true"] h2,
+html[data-dark="true"] h3,
+html[data-dark="true"] h4,
+html[data-dark="true"] h5,
+html[data-dark="true"] h6,
+html[data-dark="true"] p,
+html[data-dark="true"] li,
+html[data-dark="true"] dd,
+html[data-dark="true"] dt,
+html[data-dark="true"] span,
+html[data-dark="true"] div {
+  color: var(--site-text);
+}
+
+/* toc / nav areas */
+
+html[data-dark="true"] nav,
+html[data-dark="true"] aside,
+html[data-dark="true"] .ltx_toclist,
+html[data-dark="true"] .ltx_tocentry,
+html[data-dark="true"] .ltx_ROLE_toc {
+  background: transparent !important;
+  color: var(--site-text) !important;
+}
+
+/* code / verbatim / equations */
+
+html[data-dark="true"] pre,
+html[data-dark="true"] code,
+html[data-dark="true"] .ltx_verbatim,
+html[data-dark="true"] .ltx_listing,
+html[data-dark="true"] .ltx_equation,
+html[data-dark="true"] .ltx_equationgroup {
+  background: var(--site-code-bg) !important;
+  color: var(--site-text) !important;
+  border-color: var(--site-border) !important;
+}
+
+/* tables */
+
+html[data-dark="true"] table,
+html[data-dark="true"] th,
+html[data-dark="true"] td {
+  background: transparent !important;
+  color: var(--site-text) !important;
+}
+
+html[data-dark="true"] th,
+html[data-dark="true"] td {
+  border-color: var(--site-border) !important;
+}
+
+/* figures / theorem-like blocks */
+
+html[data-dark="true"] figure,
+html[data-dark="true"] .ltx_figure,
+html[data-dark="true"] .ltx_float,
+html[data-dark="true"] .ltx_theorem,
+html[data-dark="true"] .ltx_proof,
+html[data-dark="true"] .ltx_note {
+  background: transparent !important;
+  color: var(--site-text) !important;
+  border-color: var(--site-border) !important;
+}
+
+/* math */
+
+html[data-dark="true"] mjx-container,
+html[data-dark="true"] .MathJax,
+html[data-dark="true"] math {
+  color: var(--site-text) !important;
+}
+
+/* quotes */
+
+html[data-dark="true"] blockquote {
+  color: var(--site-text) !important;
+  border-left-color: var(--site-border) !important;
+}
+
+/* images */
+
+html[data-dark="true"] img {
+  opacity: 0.95;
+}

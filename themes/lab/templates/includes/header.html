@@ -1,0 +1,21 @@
+<header class="background" style="--image: url('{{ HEADER_IMAGE }}')" data-dark="true" {% if page is defined and page and page.slug == 'index' %}data-big{% endif %}>
+  <a href="{{ SITEURL }}/" class="home">
+    <span class="logo">{% include 'includes/manubot_inline.html' ignore missing %}<img src="{{ SITEURL }}/images/logo.svg" alt="logo"></span>
+    <span class="title-text" data-tooltip="Home">
+      <span class="title">
+      	{{ SITENAME }}
+      </span>
+      {% if SITESUBTITLE %}
+      	<span class="subtitle">
+      		{{ SITESUBTITLE }}
+      	</span>{% endif %}
+    </span>
+  </a>
+  <input class="nav-toggle" type="checkbox" aria-label="show/hide nav">
+  <nav>
+    {% for nav in NAV_PAGES|sort(attribute='order') %}
+      <a href="{{ SITEURL }}/{{ nav.slug }}/" data-tooltip="{{ nav.tooltip }}">{{ nav.title }}</a>
+    {% endfor %}
+  </nav>
+  <input type="checkbox" class="dark-toggle" data-tooltip="Dark mode" aria-label="toggle dark mode" oninput="onDarkToggleChange(event)">  
+</header>

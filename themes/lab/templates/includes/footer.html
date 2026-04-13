@@ -1,0 +1,14 @@
+<footer class="background" style="--image: url('{{ FOOTER_IMAGE }}')" data-dark="true" data-size="wide">
+  <div>
+    {% for key, value in LAB_LINKS.items() %}
+      {% set t = TYPES.get(key, {}) %}
+      {% set href = t.get('link', '$VALUE').replace('$VALUE', value) if t.get('link') else value %}
+      <div class="button-wrapper">
+      	<a class="button" href="{{ href }}" data-style="bare" {% if t.get('tooltip') %}data-tooltip="{{ t.get('tooltip') }}"{% endif %}>
+      		<i class="icon {{ t.get('icon') }}"></i>
+      	</a></div>
+    {% endfor %}
+  </div>
+  <div>&copy; {{ CURRENT_DATE.year }} {{ SITENAME }} &nbsp; | &nbsp; Built with <a href="https://getpelican.com/">Pelican</a></div>
+  <!-- <input type="checkbox" class="dark-toggle" data-tooltip="Dark mode" aria-label="toggle dark mode" oninput="onDarkToggleChange(event)"> -->
+</footer>

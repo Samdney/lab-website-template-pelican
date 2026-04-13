@@ -1,0 +1,97 @@
+<div class="paper-layout">
+  <aside class="paper-toc" aria-label="Table of contents">
+    {% set title = page.title %}
+    {% set paper = namespace(object='') %}
+    
+    {% for c in CITATIONS %}
+      {% if c['title'] == title %}
+        {% set paper.object = c %}
+      {% endif %}
+    {% endfor %}
+    
+    {% if paper.object %}
+    <div style="text-align: left">
+      <hr style="margin-top: 10px; margin-bottom: 10px; border: 1px solid red;">
+      
+      <div class="paper-info-title">Info</div>
+                  
+      <div class="citation-authors" tabindex="0">
+        {{ paper.object['authors'][:6]|join(', ') }}{% if paper.object['authors']|length > 6 %}, et al.{% endif %}
+      </div>
+      
+      <br />
+      <div class="citation-details">
+        {% set cide_seen = 0 %}
+        {% if paper.object['publisher'] %}<span class="citation-publisher">{{ paper.object['publisher'] }}</span> {% set cide_seen = 1 %}{% endif %}
+        {% if paper.object['date'] %}{% if cide_seen == 1 %}&#183; {% endif %}<span class="citation-date">({{ paper.object['date'][:4] }})</span> {% set cide_seen = 1 %}{% endif %}
+        {% if paper.object['link'] %}{% if cide_seen == 1 %}&#183; {% endif %}<span class="citation-id"><a href="{{ paper.object['link'] }}" title="External: Journal" target="_blank">{{ paper.object['link'] }}</a></span>{% set cide_seen = 1 %}{% endif %}
+        {% if paper.object['arxiv'] %}{% if cide_seen == 1 %}&#183; {% endif %}<a href="{{ paper.object['arxiv'] }}" title="External: arXiv" target="_blank"><span class="citation-arxiv"><i class="icon {{ TYPES['arxiv'].icon }}" style="white-space: nowrap; color: red;"></i></span></a> {% set cide_seen = 1 %}{% endif %}
+		{% if paper.object['researchgate'] %}{% if cide_seen == 1 %}&#183; {% endif %}<a href="{{ paper.object['researchgate'] }}" title="External: ResearchGate" target="_blank"><span class="citation-researchgate"><i class="icon {{ TYPES['researchgate'].icon }}" style="white-space: nowrap; color: lime;"></i></span></a> {% endif %}
+      </div>
+      
+      <hr style="margin-top: 10px; margin-bottom: 10px; border: 1px solid red;">
+      
+      {% if paper.object['pdf'] or paper.object['bib'] %}
+        Download(s):
+        {% for info in ['pdf', 'bib'] %}
+          {% if paper.object[info] %}
+            <a href="{{ paper.object[info] }}" title="{{ TYPES[info].text }}" class="citation-{{ info }}" target="_blank" style="text-decoration: none;">
+              <i class="icon {{ TYPES[info].icon }}"></i>
+            </a>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      
+      <hr style="margin-top: 10px; margin-bottom: 10px; border-top: 1px dotted red;">
+      
+      {% if paper.object['youtube'] or paper.object['vimeo'] or paper.object['slides'] or paper.object['poster'] %}
+        Further Media:
+        {% for info in ['youtube', 'vimeo', 'slides', 'poster'] %}
+          {% if paper.object[info] %}
+            {% if info in ['youtube', 'vimeo'] %}
+            	{% if paper.object[info] is string %}
+		          <a href="{{ paper.object[info] }}" title="External {{ TYPES[info].text }}: {{ paper.object[info] }}" class="citation-{{ info }}" target="_blank" style="text-decoration: none;">
+		            <i class="icon {{ TYPES[info].icon }}" style="white-space: nowrap;"></i>
+		          </a>
+              	{% elif paper.object[info] is sequence %}
+              		{% for entry in paper.object[info] %}
+              			{% if entry is string %}
+	  						<a href="{{ entry }}" title="External {{ TYPES[info].text }}: {{ entry }}" class="citation-{{ info }}" target="_blank" style="text-decoration: none;">
+	  							<i class="icon {{ TYPES[info].icon }}" style="white-space: nowrap;"></i>
+	  						</a>
+	  					{% elif entry is mapping %}
+	  						<a href="{{ entry['link'] }}" title="External {{ TYPES[info].text }}: {{ entry['label'] }}" class="citation-{{ info }}" target="_blank" style="text-decoration: none;">
+	  							<i class="icon {{ TYPES[info].icon }}" style="white-space: nowrap;"></i>
+	  						</a>						  					
+	  					{% endif %}                  	
+              		{% endfor %}
+              	{% endif %}
+            {% else %}
+              <a href="{{ paper.object[info] }}" title="{{ TYPES[info].text }}: {{ paper.object[info] }}" class="citation-{{ info }}" target="_blank" style="text-decoration: none;">
+                <i class="icon {{ TYPES[info].icon }}" style="white-space: nowrap;"></i>
+              </a>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      
+      <br />
+      {% if paper.object['outreach'] or paper.object['event'] or paper.object['earlybird'] %}
+        News & Outreach:
+        {% for info in ['outreach', 'event', 'earlybird'] %}
+          {% if paper.object[info] %}
+            <a href="{{ paper.object[info] }}" title="{{ TYPES[info].text }}: {{ paper.object[info] }}" class="citation-{{ info }}" target="_blank" style="text-decoration: none;">
+              <i class="icon {{ TYPES[info].icon }}" style="white-space: nowrap;"></i>
+            </a>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+    
+    <hr style="margin-top: 10px; margin-bottom: 10px; border: 1px solid red;">
+    {% endif %}
+    
+    <nav id="paper-toc">
+      <div class="paper-toc-title">Contents</div>
+    </nav>
+  </aside>

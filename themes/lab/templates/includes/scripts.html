@@ -1,0 +1,12 @@
+<script src="https://unpkg.com/@popperjs/core@2" defer></script>
+<script src="https://unpkg.com/tippy.js@6" defer></script>
+<script src="https://unpkg.com/mark.js@8" defer></script>
+
+{% for script in ['anchors','dark-mode','fetch-tags', 'pagination', 'search','site-search','table-wrap','tooltip'] %}
+	<script src="{{ SITEURL }}/_scripts/{{ script }}.js"></script>
+{% endfor %}
+
+{% if page is defined and page.category == 'paper' %}
+	<script src="/_scripts/paper-toc.js" defer></script>
+	<script src="/_scripts/ar5iv-dark-toggle.js"></script>
+{% endif %}

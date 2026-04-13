@@ -1,0 +1,506 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="background" data-size="page">
+
+  {% if page is defined and page.category == 'paper' %}
+  {% else %}
+	  {% if page.icon %}
+	  	<h1><i class="icon {{ page.icon }}"></i>{{ page.title }}</h1>
+	  {% else %}
+	  	<h1><i class="icon fa-solid fa-feather-pointed"></i>{{ page.title }}</h1>
+	  {% endif %}
+  {% endif %}  
+
+
+  {{ page.content if page is defined and page.slug not in MEMBER_MAP and page else "" }}
+  
+  {% if page is defined and page.slug == 'research' %}
+  
+  
+  {% elif page is defined and page and page.slug == 'projects' %}
+  <div class="tags">
+    <a href="?search=&quot;tag: publication&quot;" class="tag">publication</a>
+    <a href="?search=&quot;tag: resource&quot;" class="tag">resource</a>
+    <a href="?search=&quot;tag: website&quot;" class="tag">website</a>
+  </div>
+  <div class="search-info"></div>
+  </section><section class="background" data-size="page">
+  <h2>Featured</h2>
+  {% for p in PROJECTS if p.get('group') == 'featured' %}
+    <div class="card" data-style="">
+      <a href="{{ p.link }}" class="card-image" aria-label="{{ p.title }}"><img src="{{ SITEURL }}/{{ p.image }}" alt="{{ p.title }}" loading="lazy"></a>
+      <div class="card-text">
+        <a href="{{ p.link }}" class="card-title">{{ p.title }}</a>
+        {% if p.subtitle %}
+        	<span class="card-subtitle">
+        		{{ p.subtitle }}
+        	</span>
+        {% endif %}
+        <p>
+        	{{ p.description|replace('_','') }}
+        </p>
+        <div class="tags">
+        	{% for tag in p.tags or [] %}
+        		<a href="?search=&quot;tag: {{ tag }}&quot;" class="tag">
+        			{{ tag }}
+        		</a>
+        	{% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  </section><section class="background" data-size="page">
+  <h2>More</h2>
+  {% for p in PROJECTS if not p.get('group') %}
+    <div class="card" data-style="small">
+      <a href="{{ p.link }}" class="card-image" aria-label="{{ p.title }}"><img src="{{ SITEURL }}/{{ p.image }}" alt="{{ p.title }}" loading="lazy"></a>
+      <div class="card-text">
+        <a href="{{ p.link }}" class="card-title">
+        	{{ p.title }}
+        </a>
+        {% if p.subtitle %}
+        	<span class="card-subtitle">
+        		{{ p.subtitle }}
+        	</span>
+        {% endif %}
+        <p>
+        	{{ p.description|replace('_','') }}
+        </p>
+        <div class="tags">
+        	{% for tag in p.tags or [] %}
+        		<a href="?search=&quot;tag: {{ tag }}&quot;" class="tag">
+        			{{ tag }}
+        		</a>
+        	{% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  
+  {% elif page is defined and page.slug == 'lab' %}
+  </section><section class="background" data-size="page">
+  {% for m in MEMBERS if m.role == 'principal-investigator' %}
+  	<div class="portrait-wrapper">
+  		<a href="{{ SITEURL }}/{{ m.division }}/{{ m.slug }}/" class="portrait" aria-label="{{ m.name }}">
+  			{% set tp=TYPES.get(m.role,{}) %}
+  			{% if tp.get('icon') %}
+  				<i class="icon {{ tp.icon }}"></i>
+  			{% endif %}
+  			<img src="{{ SITEURL }}/{{ m.image }}" class="portrait-image" alt="member portrait" loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+  			<span class="portrait-name">
+  				{{ m.name }}
+  			</span>
+  			<span class="portrait-description">
+  				{{ m.description or tp.description }}
+  			</span>
+  			{% if m.affiliation %}
+  				<span class="portrait-affiliation">
+  					{{ m.affiliation }}
+  				</span>
+  			{% endif %}
+  		</a>
+  	</div>
+  {% endfor %}
+  
+  {% for m in MEMBERS if m.role != 'principal-investigator' %}
+  	<div class="portrait-wrapper">
+  		<a href="{{ SITEURL }}/{{ m.division }}/{{ m.slug }}/" class="portrait" aria-label="{{ m.name }}">
+  			{% set tp=TYPES.get(m.role,{}) %}
+  			{% if tp.get('icon') %}
+  				<i class="icon {{ tp.icon }}"></i>
+  			{% endif %}
+  			<img src="{{ SITEURL }}/{{ m.image }}" class="portrait-image" alt="member portrait" loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+  			<span class="portrait-name">
+  				{{ m.name }}
+  			</span>
+  			<span class="portrait-description">
+  				{{ m.description or tp.description }}
+  			</span>
+  			{% if m.affiliation %}
+  				<span class="portrait-affiliation">
+  					{{ m.affiliation }}
+  				</span>
+  			{% endif %}
+  		</a>
+  	</div>
+  {% endfor %}
+  
+  </section><section class="background" data-size="page" style="--image: url('{{ SITEURL }}/images/background.jpg')" data-dark="true">
+  	<p>
+  		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  	</p>
+  	</section><section class="background" data-size="page">
+  		<div class="grid" data-style="square">
+    		<figure class="figure">
+    			<a class="figure-image">
+    				<img src="{{ SITEURL }}/images/photo.jpg" alt="figure image" loading="lazy">
+    			</a>
+    		</figure>
+    		<figure class="figure">
+    			<a class="figure-image">
+    				<img src="{{ SITEURL }}/images/photo.jpg" alt="figure image" loading="lazy">
+    			</a>
+    		</figure>
+    		<figure class="figure">
+    			<a class="figure-image">
+    				<img src="{{ SITEURL }}/images/photo.jpg" alt="figure image" loading="lazy">
+    			</a>
+    		</figure>
+  		</div>
+
+  {% elif page is defined and page.slug in MEMBER_MAP %}
+  {% set m = MEMBER_MAP[page.slug] %}
+  {% set tp = TYPES.get(m.role,{}) %}
+  </section><section class="background" data-size="page">
+  
+  	  <div class="float">
+  
+		  <div class="portrait-wrapper" style="max-width: 22rem; margin: 0 auto 2rem auto;">  
+			<div class="portrait" aria-label="{{ m.name }}">
+			  {% if tp.get('icon') %}
+			  	<i class="icon {{ tp.icon }}"></i>
+			  {% endif %}
+			  <img src="{{ SITEURL }}/{{ m.image }}" class="portrait-image" alt="{{ m.name }} portrait" loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+			  	<span class="portrait-name">
+			  		{{ m.name }}
+			  	</span>
+			  	<span class="portrait-description">
+			  		{{ m.description or tp.description }}
+			  	</span>
+			  {% if m.affiliation %}
+			  	<span class="portrait-affiliation">
+			  		{{ m.affiliation }}
+			  	</span>
+			  {% endif %}
+			</div>
+		  </div>
+	  
+      
+		  <div class="post-info" style="justify-content: center; margin-bottom: 1rem;">
+			<span><i class="icon fa-solid fa-user"></i><span>{{ tp.title or m.role|replace('-', ' ')|title }}</span></span>
+			{% if m.group %}<span><i class="icon fa-solid fa-users"></i><span>{{ m.group|title }}</span></span>{% endif %}
+		  </div>
+  
+		  <div class="tags" style="justify-content: center; margin-bottom: 1.5rem;">
+			{% for key, value in (m.links or {}).items() %}
+			  {% if key == 'email' %}
+			  	<div class="button-wrapper">
+					<a class="button" href="mailto:{{ value }}" data-tooltip="Email" data-style="bare" aria-label="Email">
+					  <i class="icon fa-solid fa-envelope"></i>
+						<span>Email</span>
+					</a>
+				</div>
+				<!-- <a class="tag" href="mailto:{{ value }}">{{ key }}</a>-->
+			  {% elif key == 'github' %}
+			  	<div class="button-wrapper">
+					<a class="button" href="https://github.com/{{ value }}" data-tooltip="GitHub" data-style="bare" aria-label="GitHub">
+					  <i class="icon fa-brands fa-github"></i>
+						<span>GitHub</span>
+					</a>
+				</div>
+				<!-- <a class="tag" href="https://github.com/{{ value }}">{{ key }}</a>-->
+			  {% elif key == 'twitter' %}
+			  	<div class="button-wrapper">
+					<a class="button" href="https://twitter.com/{{ value }}" data-tooltip="Twitter" data-style="bare" aria-label="Twitter">
+					  <i class="icon fa-brands fa-twitter"></i>
+						<span>Twitter</span>
+					</a>
+				</div>
+				<!-- <a class="tag" href="https://twitter.com/{{ value }}">{{ key }}</a>-->
+			  {% elif key == 'orcid' %}
+			  	<div class="button-wrapper">
+					<a class="button" href="https://orcid.org/{{ value }}" data-tooltip="ORCID" data-style="bare" aria-label="ORCID">
+					  <i class="icon fa-brands fa-orcid"></i>
+						<span>ORCID</span>
+					</a>
+				</div>
+			    <!-- <a class="tag" href="https://orcid.org/{{ value }}">{{ key }}</a> -->
+			  {% elif key == 'home-page' %}
+				  <div class="button-wrapper">
+					<a class="button" href="{{ value }}" data-tooltip="Home page" data-style="bare" aria-label="Home page">
+					  <i class="icon fa-solid fa-house-user"></i>
+						<span>Home Page</span>
+					</a>
+				  </div>
+				  <!-- <a class="tag" href="{{ value }}">website</a> -->
+			  {% else %}
+				<a class="tag" href="{{ value }}">{{ key }}</a>
+			  {% endif %}
+			{% endfor %}
+		  </div>
+		  
+		  <!-- 
+		  <br />
+		  <p><a class="button" href="{{ SITEURL }}/lab/"><i class="icon fa-solid fa-arrow-left"></i><span>Back to lab</span></a></p>
+		  -->
+	  
+	  </div>
+  
+	  <div>
+	  
+	  	{% if m.slogan %}
+	  		<i>'{{ m.slogan }}'</i>
+	  	{% endif %}
+	  
+	  	{{ page.content }}
+	  	
+	  	<!--	  
+		{{ m.content | replace('
+	', '</p><p>') | safe }}
+		-->
+	  </div>
+  
+  {% elif page is defined and page.slug == 'publications' %}
+  {% from "includes/citations.html" import citation %}
+  
+  {% if HIGHLIGHTSCIT or HIGHLIGHTSCIT == [] %}
+  </section><section class="background" data-size="page">
+  <h2>Highlighted</h2>
+  {% endif %}
+  
+  
+  {% if CITATIONS %}
+
+  		{% if HIGHLIGHTSCIT == [] %}
+  			{{ citation(CITATIONS[0]) }}
+  		{% else %}
+  			{% if HIGHLIGHTSCIT %}
+			  	{% for h in HIGHLIGHTSCIT or HIGHLIGHTSCIT == [] %}
+			  		{{ citation(CITATIONS[h]) }}	
+			  	{% endfor %}
+			{% endif %}	  	
+	  	{% endif %}
+	
+  {% endif %}
+  
+  
+  </section><section class="background" data-size="page">
+  	<h2>All</h2>
+  	<div class="search-box">
+  		<input type="text" class="search-input" oninput="onSearchInput(this)" placeholder="Search items on this page"/>
+  		<button disabled data-tooltip="Clear search" aria-label="clear search" onclick="onSearchClear()"><i class="icon fa-solid fa-magnifying-glass"></i></button>
+  	</div>
+  	<div class="search-info"></div>
+  
+	<div class="tags">
+		{% for c in CITATIONS or [] %}
+		  {% for tag in c.tags or [] %}
+			<a href="?search=&quot;tag: {{ tag }}&quot;" class="tag">{{ tag }}</a>
+		  {% endfor %}
+		{% endfor %}
+  	</div>
+  
+  
+  {% set cur_year = namespace(foo=CITATIONS[0].date[:4]) %}
+  
+  {% if CITATIONS_PAGINATION %}
+  <div id="citations-list" data-citations-per-page="{{ CITATIONS_PER_PAGE }}">
+  {% endif %}
+  
+    
+  {% for c in CITATIONS %}
+  
+  	{% if CITATIONS_PAGINATION %}
+  	<div class="citation-item">
+  	{% endif %}
+  
+  
+  	{% set c_year = c.date[:4] %}
+  	
+  	{% if c_year == cur_year.foo %}
+  		{% if c_year == CITATIONS[0].date[:4] %}
+  			<h2>{{ cur_year.foo }}</h2>
+  		{% endif %}
+  	{% else %}
+  		{% set cur_year.foo = c_year %}
+  		<h2>{{ cur_year.foo }}</h2>
+  	{% endif %}
+  
+	<div class="citation-container">
+		{{ citation(c) }}  	
+	</div>
+	
+	{% if CITATIONS_PAGINATION %}
+	</div>
+	{% endif %}
+	
+  {% endfor %}
+  
+  
+  {% if CITATIONS_PAGINATION %}
+  </div>
+  {% endif %}
+  
+  
+  {% if CITATIONS_PAGINATION %}
+  <div class="citation-pagination">
+    <button id="citations-prev" class="button" type="button">Previous</button>
+	<span id="citations-page-info"></span>
+	<button id="citations-next" class="button" type="button">Next</button>
+  </div>
+  {% endif %}
+  
+  
+  {% elif page is defined and page.slug == 'contact' %}
+  <div class="button-wrapper"><a class="button" href="mailto:jane@smith.com">
+  	<i class="icon fa-solid fa-envelope"></i><span>jane@smith.com</span></a>
+  </div>
+  <div class="button-wrapper"><a class="button" href="tel:+1-555-867-5309">
+  	<i class="icon fa-solid fa-phone"></i><span>(555) 867-5309</span></a>
+  </div>
+  <div class="button-wrapper"><a class="button" href="https://www.google.com/maps">
+  	<i class="icon fa-solid fa-map-location-dot"></i><span>Address</span></a>
+  </div>
+  </section><section class="background" data-size="page">
+  	<div class="cols" style="--cols: 2">
+  		<div>
+  			<figure class="figure">
+  				<a class="figure-image"><img src="{{ SITEURL }}/images/photo.jpg" alt="Lorem ipsum" loading="lazy"></a>
+  				<figcaption class="figure-caption">
+  					Lorem ipsum
+  				</figcaption>
+  			</figure>
+  		</div>
+  		<div>
+  			<figure class="figure">
+  				<a class="figure-image"><img src="{{ SITEURL }}/images/photo.jpg" alt="Lorem ipsum" loading="lazy"></a>
+  				<figcaption class="figure-caption">
+  					Lorem ipsum
+  				</figcaption>
+  			</figure>
+  		</div>
+  	</div>
+  </section><section class="background" data-size="page" data-dark="true">
+  	<div class="cols" style="--cols: 3">
+  		<div>
+  			<p>
+  				Lorem ipsum dolor sit amet<br>
+  				consectetur adipiscing elit<br>
+  				sed do eiusmod tempor
+  			</p>
+  		</div>
+  		<div>
+  			<p>
+  				Lorem ipsum dolor sit amet<br>
+  				consectetur adipiscing elit<br>
+  				sed do eiusmod tempor
+  			</p>
+  		</div>
+  		<div>
+  			<p>
+  				Lorem ipsum dolor sit amet<br>
+  				consectetur adipiscing elit<br>
+  				sed do eiusmod tempor
+  			</p>
+  		</div>
+  	</div>
+  	
+  {% elif page is defined and page.slug == 'blog' or page.slug == 'news' or page.slug == 'outreach' %}
+  </section><section class="background" data-size="page">
+    
+  	{% if page.slug == "news" %}
+		{% set items = articles | selectattr("category", "equalto", categories_dict["News"]) | list %}
+	{% elif page.slug == "outreach" %}
+		{% set items = articles | selectattr("category", "equalto", categories_dict["Outreach"]) | list %}
+	{% elif page.slug == "blog" %}
+		{% set items = articles | selectattr("category", "equalto", categories_dict["Blog"]) | list %}
+	{% endif %}
+  
+  	<div class="search-box">
+  		<input type="text" class="search-input" oninput="onSearchInput(this)" placeholder="Search items on this page"/>
+  		<button disabled data-tooltip="Clear search" aria-label="clear search" onclick="onSearchClear()">
+  			<i class="icon fa-solid fa-magnifying-glass"></i>
+  		</button>
+  	</div>
+  	<div class="tags">
+  		{% for tag, arts in tags|default([]) %}
+  			<a href="?search=&quot;tag: {{ tag }}&quot;" class="tag">{{ tag }}</a>
+  		{% endfor %}
+  	</div>
+  	<div class="search-info">
+  	</div>
+  	
+  	
+  	<!-- for article in articles|default([]) -->
+	{% for article in items %}
+    <div class="post-excerpt-container">
+    	<div class="post-excerpt">
+    		{% if article.metadata.get('image') %}
+    			<a href="{{ SITEURL }}/{{ article.url }}" class="post-excerpt-image">
+    				<img src="{{ article.metadata['image'] }}" alt="{{ article.title }}">
+    			</a>
+    		{% endif %}
+			<div class="post-excerpt-text">
+				<a href="{{ SITEURL }}/{{ article.url }}">
+					{{ article.title }}
+				</a>
+				<div class="post-info">
+					{% if article.author %}
+					
+						{% set nimage = namespace(image='') %}
+						{% set nrole = namespace(role='') %}
+						{% set ndivision = namespace(division='') %}
+						{% set nslug = namespace(slug='') %}
+						{% for m in MEMBERS %}
+						  {% if m['name'] == article.author %}
+						  	{% set nrole.image = m['image'] %}
+							{% set nrole.role = m['role'] %}
+							{% set ndivision.division = m['division'] %}
+							{% set nslug.slug = m['slug'] %}						
+						  {% endif %}
+						{% endfor %}
+												
+						<div class="portrait-wrapper">
+							<a href="/{{ ndivision.division }}/{{ nslug.slug }}" title="{{ TYPES[nrole.role].description }}" class="portrait" data-style="tiny" aria-label="{{ article.author }}">
+								<i class="icon {{ TYPES[nrole.role].icon }}"></i>
+								<img src="{{ SITEURL }}/images/{{ nimage.image }}" class="portrait-image" alt="member portrait" loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+								
+								<!-- <i class="icon fa-solid fa-feather-pointed"></i> -->
+								
+								<span class="portrait-name">
+									{{ article.author }}
+							  	</span>		
+								
+								<span class="portrait-description">
+									{{ TYPES[nrole.role].description }}
+								</span>			
+						  </a>
+						</div>
+					{% endif %}
+								
+					
+					 <span data-tooltip="Originally published on">
+						<i class="icon fa-regular fa-calendar"></i>
+						<span>
+							{{ article.date|strftime('%B %d, %Y') }}
+						</span>
+					</span>
+					{% if article.lastupdate %}
+						<span data-tooltip="Last updated on">
+							<i class="icon fa-solid fa-clock-rotate-left"></i>
+							<span>
+								{{ article.lastupdate|parse_date|strftime('%B %d, %Y') }}
+							</span>
+						</span>
+					{% endif %}
+					{% if article.tags %}
+						<!-- <div class="tags"> -->
+							{% for tag in article.tags|default([]) %} 
+								<a href="?search=&quot;tag: {{ tag }}&quot;" class="tag">{{ tag }}</a>
+							{% endfor %}
+						<!-- </div> -->
+					{% endif %}
+					
+				</div>
+				<p>
+					{{ article.summary|striptags }}
+				</p>
+			</div>
+    	</div>
+	</div>
+  {% endfor %}
+  {% elif page is defined %}  
+  
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+{% set home = (pages|selectattr('slug', 'equalto', 'index')|list|first) if pages is defined else none %}
+<section class="background" data-size="page">
+  {% if home %}
+    {{ home.content }}
+  {% else %}
+    <h1>{{ SITENAME }}</h1>
+  {% endif %}
+</section>
+{% endblock %}

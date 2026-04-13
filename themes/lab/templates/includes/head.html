@@ -1,0 +1,10 @@
+<head>
+  {% include 'includes/meta.html' %}
+  {% include 'includes/fonts.html' %}
+  {% include 'includes/styles.html' %}
+  {% include 'includes/scripts.html' %}
+  {% if page is defined and page.category == 'paper' %}
+  {% else %}
+  	{% include 'includes/mathjax.html' %}
+  {% endif %}
+</head>

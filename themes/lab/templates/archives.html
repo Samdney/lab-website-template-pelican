@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+	<section class='background' data-size='page'>
+		<h1>Archives</h1>
+		{% for article in dates %}
+			<p>
+				<a href='{{ SITEURL }}/{{ article.url }}'>{{ article.title }}</a> — {{ article.date|strftime('%Y-%m-%d') }}
+			</p>
+		{% endfor %}
+	</section>
+{% endblock %}

@@ -1,0 +1,8 @@
+.idea
+.venv
+__pycache__
+mysuff
+output
+TODO.md
+.pyc
+

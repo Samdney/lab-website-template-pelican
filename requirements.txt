@@ -1,0 +1,6 @@
+pelican>=4.11
+markdown
+typogrify
+pelican-render-math
+pelican-neighbors
+PyYAML

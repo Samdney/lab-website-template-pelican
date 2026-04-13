@@ -1,0 +1,126 @@
+section {
+  padding: 40px max(40px, calc((100% - 1000px) / 2));
+  transition: background var(--transition), color var(--transition);
+}
+section[data-size="wide"] {
+  padding: 40px;
+}
+section[data-size="full"] {
+  padding: 0;
+}
+section[data-size="full"] > * {
+  margin: 0;
+  border-radius: 0;
+}
+section[data-size="full"] img {
+  border-radius: 0;
+}
+main > section:last-of-type {
+  flex-grow: 1;
+}
+main > section:nth-of-type(odd) {
+  background: var(--background);
+}
+main > section:nth-of-type(even) {
+  background: var(--background-alt);
+}
+
+
+/*
+section {
+  padding: 40px clamp(16px, 4vw, 40px);
+  transition: background var(--transition), color var(--transition);
+}
+
+section[data-size="page"] {
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+section[data-size="wide"] {
+  padding: 40px clamp(16px, 4vw, 40px);
+}
+
+section[data-size="full"] {
+  padding: 0;
+  max-width: none;
+}
+
+@media (max-width: 900px) {
+  section {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  section {
+    padding: 24px 16px;
+  }
+
+  section[data-size="wide"] {
+    padding: 24px 16px;
+  }
+}
+*/
+
+
+
+/*
+section {
+  padding: 40px clamp(16px, 4vw, 40px);
+  transition: background var(--transition), color var(--transition);
+}
+
+section[data-size="page"] {
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+section[data-size="wide"] {
+  padding: 40px clamp(16px, 4vw, 40px);
+}
+
+section[data-size="full"] {
+  padding: 0;
+  max-width: none;
+}
+
+section[data-size="full"] > * {
+  margin: 0;
+  border-radius: 0;
+}
+
+section[data-size="full"] img {
+  border-radius: 0;
+}
+
+main > section:last-of-type {
+  flex-grow: 1;
+}
+
+main > section:nth-of-type(odd) {
+  background: var(--background);
+}
+
+main > section:nth-of-type(even) {
+  background: var(--background-alt);
+}
+
+@media (max-width: 900px) {
+  section {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  section {
+    padding: 24px 16px;
+  }
+
+  section[data-size="wide"] {
+    padding: 24px 16px;
+  }
+}
+*/

@@ -1,0 +1,61 @@
+<link href="https://cdn.jsdelivr.net/gh/StylishThemes/Syntax-Themes/pygments/css-github/pygments-tomorrow-night-eighties.css" rel="stylesheet"/>
+{% for style in [
+	'all',
+	'-theme',
+	'alert',
+	'anchor',
+	'background',
+	'body',
+	'bold',
+	'button',
+	'card',
+	'checkbox',
+	'citation',
+	'code',
+	'cols',
+	'dark-toggle',
+	'details',
+	'feature',
+	'figure',
+	'float',
+	'font',
+	'footer',
+	'form',
+	'grid',
+	'header',
+	'heading',
+	'highlight',
+	'icon',
+	'image',
+	'link',
+	'list',
+	'main',
+	'paragraph',
+	'portrait',
+	'post-excerpt',
+	'post-info',
+	'post-nav',
+	'quote',
+	'rule',
+	'search-box',
+	'search-info',
+	'section',
+	'table',
+	'tags',
+	'textbox',
+	'tooltip',
+	'util'
+] %}
+
+	<link href="{{ SITEURL }}/_styles/{{ style }}.css" rel="stylesheet" />
+{% endfor %}
+
+
+{% if page is defined and page.category == 'paper' %}
+	<!--Generated on Tue Apr  7 05:40:11 2026 by LaTeXML (version 0.8.8) http://dlmf.nist.gov/LaTeXML/.-->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dginev/ar5iv-css@0.8.4/css/ar5iv.min.css" type="text/css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dginev/ar5iv-css@0.8.4/css/ar5iv-fonts.min.css" type="text/css">
+		
+	<link rel="stylesheet" href="/_styles/paper-layout.css" type="text/css">
+	<link rel="stylesheet" href="/_styles/ar5iv-dark-toggle.css" type="text/css">
+{% endif %}

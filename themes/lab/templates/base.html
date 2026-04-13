@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" data-dark="false">
+  {% include 'includes/head.html' %}
+  <body>
+    {% include 'includes/header.html' %}
+    
+   	{% if page is defined and page.category == 'paper' %}
+    	{% include 'paper.html' %}
+  	{% endif %}
+    
+    
+    {% if page is defined and page.category == 'paper' %}
+      <main class="paper-content" id="paper-content">
+    {% else %}
+      <main>
+    {% endif %}
+    
+    {% block content %}{% endblock %}
+    
+    {% if page is defined and page.category == 'paper' %}
+      </main>
+    </div>
+    {% else %}
+      </main>
+    {% endif %}
+    
+    {% include 'includes/footer.html' %}
+  </body>
+</html>
