@@ -135,7 +135,7 @@ A dedicated paper-page layout supports HTML imported from external paper-generat
 
 ### `paperhtml.py`
 
-This repository also includes a helper script called **`paperhtml.py`** for importing paper HTML into the website workflow. The script helps convert existing HTML paper output into a form for integration into the Pelican website content structure.
+This repository also includes a helper script called **`paperhtml.py`** for importing paper HTML (generated with [ar5ivist](https://github.com/dginev/ar5ivist)) into the website workflow. The script helps convert existing HTML paper output into a form for integration into the Pelican website content structure.
 
 #### Usage
 
